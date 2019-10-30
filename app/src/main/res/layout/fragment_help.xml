@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:elevation="6dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_help_outline_48dp"
+            android:fontFamily="casual"
+            android:gravity="center"
+            android:maxLines="1"
+            android:padding="6dp"
+            android:text="@string/help"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:padding="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            >
+            <TextView
+                style="@style/TextHelp"
+                android:text="1. Klik 'Find Nearby Restaurant' untuk menemukan restoran terdekat."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <ImageView
+                style="@style/ImgHelp"
+                android:src="@drawable/help_home"/>
+            <TextView
+                style="@style/TextHelp"
+                android:text="2. Pilih 'About' untuk informasi lebih lanjut tentang aplikasi ini."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <ImageView
+                style="@style/ImgHelp"
+                android:src="@drawable/help_about"/>
+            <TextView
+                style="@style/TextHelp"
+                android:text="3. Pilih 'Help' untuk melihat cara menggunakan aplikasi ini."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <ImageView
+                style="@style/ImgHelp"
+                android:src="@drawable/help_help"/>
+
+            <TextView
+                style="@style/TextHelp"
+                android:text="5. Setelah memilih 'Find Nearby Restaurant' Anda akan masuk kedalam menu Utama."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <ImageView
+                style="@style/ImgHelp"
+                android:src="@drawable/help_main"/>
+            <TextView
+                style="@style/TextHelp"
+                android:text="6. Pilih restoran yang Anda inginkan di daftar bagian bawah."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <ImageView
+                style="@style/ImgHelp"
+                android:src="@drawable/help_list_restaurant"/>
+            <TextView
+                style="@style/TextHelp"
+                android:text="7. Peta akan secara otomatis menunjukkan lokasi yang Anda pilih."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <ImageView
+                style="@style/ImgHelp"
+                android:src="@drawable/help_marker"/>
+            <TextView
+                style="@style/TextHelp"
+                android:text="8. Klik Marker merah untuk menunjukkan aksi berikutnya."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <ImageView
+                style="@style/ImgHelp"
+                android:src="@drawable/help_click_marker"/>
+            <TextView
+                style="@style/TextHelp"
+                android:text="9. Klik tombol dibawah untuk menunjukkan navigasi."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <ImageView
+                style="@style/ImgHelp"
+                android:src="@drawable/help_click_nav"/>
+            <TextView
+                style="@style/TextHelp"
+                android:text="10. Klik tombol dibawah untuk menunjukkan lokasi pada Google Map."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <ImageView
+                style="@style/ImgHelp"
+                android:src="@drawable/help_click_loc"/>
+            <TextView
+                style="@style/TextHelp"
+                android:text="11. Klik tombol pada pojok kanan atas untuk menunjukkan lokasi Anda."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <ImageView
+                style="@style/ImgHelp"
+                android:src="@drawable/help_click_me"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
