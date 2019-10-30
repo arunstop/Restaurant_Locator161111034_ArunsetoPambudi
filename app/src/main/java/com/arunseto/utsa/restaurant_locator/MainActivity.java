@@ -5,9 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -15,9 +13,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback, LocationListener {
+public class MainActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
 
     private static final int PERMISSION_REQUEST_LOCATION = 0;
@@ -67,12 +64,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
         {
             Intent intent = new Intent(this, MapsActivity.class);
             LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-            lm.requestLocationUpdates(
-                    String.valueOf(lm.getBestProvider(new Criteria(), true)).toString(),
-                    1000,
-                    0,
-                    this
-                    );
             Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             Double longitude = location.getLongitude();
             Double latitude = location.getLatitude();
@@ -81,9 +72,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
             intent.putExtra("long", longit);
             intent.putExtra("lat", lat);
             startActivity(intent);
-            Double lo =  Double.parseDouble(intent.getStringExtra("long"));
-            Double la = Double.parseDouble(intent.getStringExtra("lat"));
-            Toast.makeText(this, lo+", "+la, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -147,24 +135,5 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     PERMISSION_REQUEST_LOCATION);
         }
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-    }
-
-    @Override
-    public void onStatusChanged(String s, int i, Bundle bundle) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String s) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String s) {
-
     }
 }
