@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -71,7 +72,10 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
             String lat = Double.toString(latitude);
             intent.putExtra("long", longit);
             intent.putExtra("lat", lat);
-            startActivity(intent);
+//            startActivity(intent);
+            Double lo =  Double.parseDouble(intent.getStringExtra("long"));
+            Double la = Double.parseDouble(intent.getStringExtra("lat"));
+            Toast.makeText(this, lo+", "+la, Toast.LENGTH_SHORT).show();
         }
     }
 
