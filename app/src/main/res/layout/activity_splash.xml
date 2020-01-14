@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/des_grad_background">
+
+    <LinearLayout
+        android:paddingBottom="30dp"
+        android:layout_width="match_parent"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:src="@drawable/icon"
+        android:layout_width="120dp"
+        android:layout_height="120dp" />
+    <TextView
+        android:textColor="@android:color/white"
+        android:fontFamily="casual"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_marginTop="12dp"
+        android:text="@string/app_name"
+        android:shadowColor="@color/colorPrimaryDark"
+        android:shadowDx="6"
+        android:shadowDy="6"
+        android:shadowRadius="3"
+        android:textFontWeight="6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:layout_width="wrap_content"
+        app:SpinKit_Color="@color/colorAccent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="30dp"
+        style="@style/SpinKitView.Large.Wave"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

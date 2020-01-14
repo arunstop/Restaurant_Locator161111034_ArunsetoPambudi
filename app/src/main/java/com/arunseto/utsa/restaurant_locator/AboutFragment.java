@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import java.util.Objects;
+
 
 public class AboutFragment extends DialogFragment {
     View view;
@@ -40,9 +42,9 @@ public class AboutFragment extends DialogFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         DisplayMetrics metrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        getDialog().getWindow().setGravity(Gravity.BOTTOM);
-        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, (int) (metrics.heightPixels * 1));// here i have fragment height 30% of window's height you can set it as per your requirement
+        Objects.requireNonNull(getActivity()).getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        Objects.requireNonNull(getDialog().getWindow()).setGravity(Gravity.BOTTOM);
+        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, (int) (metrics.heightPixels));// here i have fragment height 30% of window's height you can set it as per your requirement
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
     }

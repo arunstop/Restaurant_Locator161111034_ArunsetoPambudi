@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Restaurant_Locator 161111034_ArunsetoPambudi</string>
+    <string name="app_name">Restaurant Locator</string>
     <string name="title_activity_maps">Map</string>
     <string name="find_restaurants">Find Nearby Restaurants</string>
     <string name="restaurants">Restaurant\nLocator</string>
@@ -9,4 +9,7 @@
     <string name="stiki"><u>www.stiki.ac.id</u></string>
     <string name="email_stiki"><u>161111034@mhs.stiki.ac.id</u></string>
     <string name="email"><u>\n161111034@mhs.stiki.ac.id\narunstop@gmail.com\n</u></string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

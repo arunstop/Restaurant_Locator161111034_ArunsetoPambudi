@@ -6,10 +6,13 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,22 +48,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final String TYPE_SEARCH = "/nearbysearch";
     private static final String OUT_JSON = "/json?";
     private static final String LOG_TAG = "ListRest";
+    private static final int PERMISSION_REQUEST_CAMERA = 0;
     private GoogleMap mMap;
     private LinearLayout llItem;
-    private String longitude, latitude;
+    private String longitude, latitude,shareLocName;
     private Intent intent;
-    private Double lat, lng;
+    private Double lat, lng,shareLat,shareLng;
     private int radius;
+    private View mLayoutMap;
+    private FloatingActionButton btnShare, btnScan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        // Initialized
+        // Initialize
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        mLayoutMap = findViewById(R.id.mLayoutMap);
         llItem = findViewById(R.id.llItem);
-
+        btnScan = findViewById(R.id.btnScan);
+        btnShare = findViewById(R.id.btnShare);
 
         // Meng-apply Map
         mapFragment.getMapAsync(this);
@@ -75,6 +83,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         lat = Double.parseDouble(latitude);
         lng = Double.parseDouble(longitude);
         radius = 1000;
+
+        shareLat=lat;
+        shareLng=lng;
+        shareLocName="My Home";
+
+        btnScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startScan();
+            }
+        });
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startShare();
+            }
+        });
 
     }
 
@@ -91,7 +116,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -158,8 +183,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void showItems(final double lat, final double lng, int radius) {
         llItem.removeAllViews();
         View child;
-        LinearLayout llListItem,llItemSub;
-        TextView tvItemName,tvItemRating,tvItemDistance,tvItemTime,tvItemPrice,tvItemStatus;
+        LinearLayout llListItem, llItemSub;
+        TextView tvItemName, tvItemRating, tvItemDistance, tvItemTime, tvItemPrice, tvItemStatus;
 
 
         HttpURLConnection conn = null;
@@ -199,7 +224,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             JSONObject jsonObj = new JSONObject(jsonResults.toString());
             JSONArray predsJsonArray = jsonObj.getJSONArray("results");
 
-            double restaurantLat,restaurantLng,restaurantRating,distance,time;
+            double restaurantLat, restaurantLng, restaurantRating, distance, time;
             int restaurantPrice;
             String restaurantName;
             Boolean restaurantStatus;
@@ -227,27 +252,42 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .getJSONObject("location")
                         .getDouble("lng");
                 restaurantName = predsJsonArray.getJSONObject(i).getString("name");
-//                restaurantRating = predsJsonArray.getJSONObject(i).getDouble("rating");
-                restaurantRating = 5.0;
+                if (predsJsonArray.getJSONObject(i).isNull("rating")) {
+                    restaurantRating = 0;
+                } else {
+                    restaurantRating = predsJsonArray.getJSONObject(i).getDouble("rating");
+                }
                 distance = CalculationByDistance(new LatLng(lat, lng), new LatLng(restaurantLat, restaurantLng));
-                time = distance*17;
-                restaurantPrice = 1;
-//                restaurantStatus = predsJsonArray.getJSONObject(i)
-//                        .getJSONObject("opening_hours")
-//                        .getBoolean("open_now");
-
+                time = distance * 5;
+                if (predsJsonArray.getJSONObject(i).isNull("price_level")) {
+                    restaurantPrice = 0;
+                } else {
+                    restaurantPrice = predsJsonArray.getJSONObject(i)
+                            .getInt("price_level");
+                }
+                if (predsJsonArray.getJSONObject(i).isNull("opening_hours")) {
+                    restaurantStatus = false;
+                } else {
+                    restaurantStatus = predsJsonArray.getJSONObject(i)
+                            .getJSONObject("opening_hours")
+                            .getBoolean("open_now");
+                }
 
 
                 // memberi label pada list
                 tvItemName.setText(restaurantName);
-                tvItemRating.setText("-");
+                tvItemRating.setText((restaurantRating == 0 ? "-" : restaurantRating + ""));
                 tvItemDistance.setText(formatter.format(distance) + " km");
-                tvItemTime.setText(formatter.format(time)+" menit");
-                tvItemPrice.setText("");
-                for (int price=1;price<=restaurantPrice;price++){
-                    tvItemPrice.append("$");
+                tvItemTime.setText(formatter.format(time) + " menit");
+                if (restaurantPrice != 0) {
+                    tvItemPrice.setText("");
+                    for (int price = 1; price <= restaurantPrice; price++) {
+                        tvItemPrice.append("$");
+                    }
+                } else {
+                    tvItemPrice.setText("-");
                 }
-                tvItemStatus.setText((true == true ? "Open": "Closed"));
+                tvItemStatus.setText((restaurantStatus ? "Open" : "Closed"));
 
                 final double finalLng = restaurantLng;
                 final double finalLat = restaurantLat;
@@ -261,6 +301,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(finalLat, finalLng), 18);
                         mMap.animateCamera(cameraUpdate);
                         mMap.addMarker(new MarkerOptions().position(new LatLng(finalLat, finalLng)).title(finalRestaurantName)).showInfoWindow();
+                        shareLat=finalLat;
+                        shareLng=finalLng;
+                        shareLocName=finalRestaurantName;
                     }
                 });
 
@@ -278,8 +321,85 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//    }
+
+    public void startScan() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED) {
+            // Permission is already available, show restaurants
+            Snackbar.make(mLayoutMap,
+                    "Camera permission available. Show restaurants.",
+                    Snackbar.LENGTH_SHORT).show();
+            navigateToScan();
+        } else {
+            // Permission is missing and must be requested.
+            requestCameraPermission();
+        }
+    }
+
+    public void startShare() {
+        // link google map
+        String locURI ="http://maps.google.com/maps?q=" +shareLat+","+shareLng;
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, " Come Here!! ");
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, locURI);
+        startActivity(Intent.createChooser(sharingIntent, "Share ''"+shareLocName+"'' via..."));
+    }
+
+    public void navigateToScan() {
+        Intent scanIntent = new Intent(this, ScanActivity.class);
+        startActivity(scanIntent);
+    }
+
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        if (requestCode == PERMISSION_REQUEST_CAMERA) {
+            // Request for location permission.
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission has been granted. Start preview Activity.
+                Snackbar.make(mLayoutMap, "Location permission granted. Showing restaurants.",
+                        Snackbar.LENGTH_SHORT)
+                        .show();
+                navigateToScan();
+            } else {
+                // Permission request was denied.
+                Snackbar.make(mLayoutMap, "Location permission request was denied.",
+                        Snackbar.LENGTH_SHORT)
+                        .show();
+            }
+        }
+    }
+
+    private void requestCameraPermission() {
+        // Permission has not been granted and must be requested.
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.CAMERA)) {
+            // Provide an additional rationale to the user if the permission was not granted
+            // and the user would benefit from additional context for the use of the permission.
+            // Display a SnackBar with a button to request the missing permission.
+            Snackbar.make(mLayoutMap, "Location access is required to display restaurants near you.",
+                    Snackbar.LENGTH_INDEFINITE).setAction("OK", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Request the permission
+                    ActivityCompat.requestPermissions(MapsActivity.this,
+                            new String[]{Manifest.permission.CAMERA},
+                            PERMISSION_REQUEST_CAMERA);
+                }
+            }).show();
+
+        } else {
+            Snackbar.make(mLayoutMap,
+                    "Permission is not available. Requesting location permission.",
+                    Snackbar.LENGTH_SHORT).show();
+            // Request the permission. The result will be received in onRequestPermissionResult().
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+                    PERMISSION_REQUEST_CAMERA);
+        }
     }
 }

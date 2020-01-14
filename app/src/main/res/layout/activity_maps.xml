@@ -3,82 +3,121 @@
     xmlns:card="http://schemas.android.com/apk/res-auto"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mLayoutMap"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
     <LinearLayout
+        android:background="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        android:elevation="6dp">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_restaurant"
-            android:fontFamily="casual"
-            android:gravity="center"
-            android:maxLines="1"
-            android:padding="6dp"
-            android:text="@string/list_restaurants"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:elevation="6dp"
-        tools:context=".MapsActivity" />
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="4"
-        card:cardCornerRadius="12dp"
-        card:cardElevation="6dp">
-
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            card:cardBackgroundColor="@color/colorPrimaryDark"
+            card:cardCornerRadius="18dp"
+            card:cardUseCompatPadding="true">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="6dp"
-                android:background="@color/colorPrimaryDark" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:drawableStart="@drawable/ic_restaurant_sm"
+                android:drawablePadding="6dp"
+                android:fontFamily="casual"
+                android:text="Find Nearby Restaurants"
+                android:textColor="@color/colorBackground"
+                android:textStyle="bold" />
+        </android.support.v7.widget.CardView>
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end">
 
-                <LinearLayout
-                    android:id="@+id/llItem"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/btnShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/ic_share"
+                card:backgroundTint="@color/colorPrimaryDark"
+                card:fabSize="mini" />
 
-                    <include layout="@layout/template_restaurant" />
 
-                    <include layout="@layout/template_restaurant" />
-
-                    <include layout="@layout/template_restaurant" />
-
-                    <include layout="@layout/template_restaurant" />
-
-                    <include layout="@layout/template_restaurant" />
-
-                    <include layout="@layout/template_restaurant" />
-
-                    <include layout="@layout/template_restaurant" />
-                </LinearLayout>
-            </ScrollView>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/btnScan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/ic_qr"
+                card:backgroundTint="@color/colorPrimaryDark"
+                card:fabSize="mini" />
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
-</LinearLayout>
+    </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="6dp"
+                tools:context=".MapsActivity" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            card:cardCornerRadius="12dp"
+            card:cardElevation="6dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp"
+                    android:background="@color/colorPrimaryDark" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/llItem"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/template_restaurant" />
+
+                        <include layout="@layout/template_restaurant" />
+
+                        <include layout="@layout/template_restaurant" />
+
+                        <include layout="@layout/template_restaurant" />
+
+                        <include layout="@layout/template_restaurant" />
+
+                        <include layout="@layout/template_restaurant" />
+
+                        <include layout="@layout/template_restaurant" />
+                    </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+
