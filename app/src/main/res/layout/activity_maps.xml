@@ -70,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:elevation="6dp"
-                tools:context=".MapsActivity" />
+                tools:context="id.ac.stiki.doleno.restaurant_locator.MapsActivity" />
         </RelativeLayout>
 
         <android.support.v7.widget.CardView

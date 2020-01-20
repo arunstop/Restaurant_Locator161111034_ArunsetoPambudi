@@ -48,7 +48,7 @@
                 android:src="@drawable/help_home"/>
             <TextView
                 style="@style/TextHelp"
-                android:text="2. Pilih 'About' untuk informasi lebih lanjut tentang aplikasi ini."
+                android:text="2. Klik About untuk informasi lebih lanjut"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <ImageView
@@ -56,16 +56,15 @@
                 android:src="@drawable/help_about"/>
             <TextView
                 style="@style/TextHelp"
-                android:text="3. Pilih 'Help' untuk melihat cara menggunakan aplikasi ini."
+                android:text="3. Klik Help untuk melihat penggunaan aplikasi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <ImageView
                 style="@style/ImgHelp"
-                android:src="@drawable/help_help"/>
-
+                android:src="@drawable/help_about"/>
             <TextView
                 style="@style/TextHelp"
-                android:text="5. Setelah memilih 'Find Nearby Restaurant' Anda akan masuk kedalam menu Utama."
+                android:text="4. Klik Restoran pada daftar dibawah untuk memilih restoran, lalu klik marker merah pada peta untuk membuka lokasi tersebut di Google Map"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <ImageView
@@ -73,54 +72,19 @@
                 android:src="@drawable/help_main"/>
             <TextView
                 style="@style/TextHelp"
-                android:text="6. Pilih restoran yang Anda inginkan di daftar bagian bawah."
+                android:text="5. Klik Share (pojok kanan atas bagian kiri) untuk membagikan lokasi restoran."
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <ImageView
                 style="@style/ImgHelp"
-                android:src="@drawable/help_list_restaurant"/>
-            <TextView
+                android:src="@drawable/help_share"/><TextView
                 style="@style/TextHelp"
-                android:text="7. Peta akan secara otomatis menunjukkan lokasi yang Anda pilih."
+                android:text="6. Klik QR Scanner untuk melakukan scan pada QR."
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <ImageView
                 style="@style/ImgHelp"
-                android:src="@drawable/help_marker"/>
-            <TextView
-                style="@style/TextHelp"
-                android:text="8. Klik Marker merah untuk menunjukkan aksi berikutnya."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <ImageView
-                style="@style/ImgHelp"
-                android:src="@drawable/help_click_marker"/>
-            <TextView
-                style="@style/TextHelp"
-                android:text="9. Klik tombol dibawah untuk menunjukkan navigasi."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <ImageView
-                style="@style/ImgHelp"
-                android:src="@drawable/help_click_nav"/>
-            <TextView
-                style="@style/TextHelp"
-                android:text="10. Klik tombol dibawah untuk menunjukkan lokasi pada Google Map."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <ImageView
-                style="@style/ImgHelp"
-                android:src="@drawable/help_click_loc"/>
-            <TextView
-                style="@style/TextHelp"
-                android:text="11. Klik tombol pada pojok kanan atas untuk menunjukkan lokasi Anda."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <ImageView
-                style="@style/ImgHelp"
-                android:src="@drawable/help_click_me"/>
-
-
+                android:src="@drawable/help_qr"/>
         </LinearLayout>
 
     </ScrollView>

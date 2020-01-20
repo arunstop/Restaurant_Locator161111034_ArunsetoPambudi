@@ -1,9 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
+    lintOptions {
+        checkReleaseBuilds false
+    }
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.arunseto.utsa.restaurant_locator"
+        applicationId "id.ac.stiki.doleno.restaurant_locator"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
